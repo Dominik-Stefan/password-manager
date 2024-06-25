@@ -44,7 +44,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             name: account.name,
             username: account.username,
             password: account.password,
-            folder: account.folder,
           };
         });
         res.json(accounts);
@@ -60,7 +59,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           name: req.body.name,
           username: req.body.username,
           password: req.body.password,
-          folder: req.body.folder,
         };
 
         await db.collection("accounts").insertOne(account);
@@ -77,7 +75,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           name: req.body.name,
           username: req.body.username,
           password: req.body.password,
-          folder: req.body.folder,
         };
 
         await db.collection("accounts").updateOne(
@@ -128,7 +125,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             brand: card.brand,
             expiration: card.expiration,
             cvv: card.cvv,
-            folder: card.folder,
           };
         });
         res.json(posts);
@@ -147,7 +143,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           brand: req.body.brand,
           expiration: req.body.expiration,
           cvv: req.body.cvv,
-          folder: req.body.folder,
         };
 
         await db.collection("cards").insertOne(card);
@@ -167,7 +162,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           brand: req.body.brand,
           expiration: req.body.expiration,
           cvv: req.body.cvv,
-          folder: req.body.folder,
         };
 
         await db.collection("cards").updateOne(
@@ -214,7 +208,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             id: note._id,
             name: note.name,
             text: note.text,
-            folder: note.folder,
           };
         });
         res.json(notes);
@@ -229,7 +222,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           userID: req.user._id,
           name: req.body.name,
           text: req.body.text,
-          folder: req.body.folder,
         };
 
         await db.collection("notes").insertOne(note);
@@ -245,7 +237,6 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
           userID: req.user._id,
           name: req.body.name,
           text: req.body.text,
-          folder: req.body.folder,
         };
 
         await db.collection("notes").updateOne(
