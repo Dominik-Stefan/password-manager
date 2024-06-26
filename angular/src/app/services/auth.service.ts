@@ -53,6 +53,11 @@ export class AuthService {
     });
   }
 
+  logout() {
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
   signup(user: User) {
     this.http.post(this.signupPath, user).subscribe((data: any) => {
       if (data.status == 'ok') {
