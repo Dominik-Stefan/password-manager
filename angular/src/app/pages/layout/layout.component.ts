@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,7 +11,18 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LayoutComponent {
   authServicve = inject(AuthService);
+  router = inject(Router);
   logout() {
     this.authServicve.logout();
+  }
+
+  goToAccounts() {
+    this.router.navigate(['/accounts']);
+  }
+  goToCards() {
+    this.router.navigate(['/cards']);
+  }
+  goToNotes() {
+    this.router.navigate(['/notes']);
   }
 }

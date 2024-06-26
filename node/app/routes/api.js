@@ -35,7 +35,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         let accounts = await db
           .collection("accounts")
           .find({
-            userID: req.user._id,
+            userID: new ObjectId(req.user._id),
           })
           .toArray();
         accounts = accounts.map((account) => {
@@ -55,7 +55,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .post(checkAuth, async (req, res) => {
       try {
         const account = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           username: req.body.username,
           password: req.body.password,
@@ -71,7 +71,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .put(checkAuth, async (req, res) => {
       try {
         const account = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           username: req.body.username,
           password: req.body.password,
@@ -113,7 +113,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         let cards = await db
           .collection("cards")
           .find({
-            userID: req.user._id,
+            userID: new ObjectId(req.user._id),
           })
           .toArray();
         cards = cards.map((card) => {
@@ -127,7 +127,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             cvv: card.cvv,
           };
         });
-        res.json(posts);
+        res.json(cards);
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -136,7 +136,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .post(checkAuth, async (req, res) => {
       try {
         const card = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           cardholder_name: req.body.cardholder_name,
           number: req.body.number,
@@ -155,7 +155,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .put(checkAuth, async (req, res) => {
       try {
         const card = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           cardholder_name: req.body.cardholder_name,
           number: req.body.number,
@@ -200,7 +200,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         let notes = await db
           .collection("notes")
           .find({
-            userID: req.user._id,
+            userID: new ObjectId(req.user._id),
           })
           .toArray();
         notes = notes.map((note) => {
@@ -219,7 +219,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .post(checkAuth, async (req, res) => {
       try {
         const note = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           text: req.body.text,
         };
@@ -234,7 +234,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     .put(checkAuth, async (req, res) => {
       try {
         const note = {
-          userID: req.user._id,
+          userID: new ObjectId(req.user._id),
           name: req.body.name,
           text: req.body.text,
         };
