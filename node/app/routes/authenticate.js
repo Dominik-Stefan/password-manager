@@ -53,5 +53,28 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
     }
   });
 
+  authRouter.route("/validate").post(async (req, res) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: Token not provided" });
+    }
+
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          return res
+            .status(401)
+            .json({ message: "Unauthorized: Token expired" });
+        }
+        return res.status(401).json({ message: "Unauthorized: Invalid token" });
+      }
+
+      res.json({ status: "ok", user: decoded });
+    });
+  });
+
   return authRouter;
 };

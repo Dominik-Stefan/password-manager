@@ -31,7 +31,7 @@ async function createCollectionsAndInsertData(db) {
   const userResult = await usersCollection.insertOne({
     username: "Dodo",
     email: "dodo@test.com",
-    password: "$2y$10$d5uT/h1hWcQ5szkUr2cS0OEcvlorEn.tA8XANJ8Wqn6nE/.6qmTga",
+    password: "$2b$10$Z.Ql3BVG.1EN.2QcsJiAVOkcBJ.fwJyIePqbsaFsZ6ehwvNObXrpm",
   });
 
   const userId = userResult.insertedId;

@@ -1,51 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { User } from '../../data_classes/user';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
   user: User;
 
-  loginPath = 'http://localhost:8081/auth/login';
-  signupPath = 'http://localhost:8081/auth/register';
+  authService = inject(AuthService);
 
-  //loginPath = '/auth/login';
-  //signupPath = '/auth/register';
-
-  constructor(private router: Router, private http: HttpClient) {
+  constructor() {
     this.user = new User();
   }
 
+  ngOnInit(): void {
+    this.authService.tokenLogin();
+  }
+
   login() {
-    this.http.post(this.loginPath, this.user).subscribe((data: any) => {
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        this.router.navigate(['/dashboard']);
-      } else if (data.status) {
-        alert(data.status);
-      } else {
-        console.log(data);
-      }
-    });
+    this.authService.login(this.user);
   }
 
   signup() {
-    this.http.post(this.signupPath, this.user).subscribe((data: any) => {
-      if (data.status == 'ok') {
-        alert('Account created successfully. Please login');
-      } else if (data.status) {
-        alert(data.status);
-      } else {
-        console.log(data);
-      }
-    });
+    this.authService.signup(this.user);
   }
 }
