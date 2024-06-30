@@ -62,7 +62,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         };
 
         await db.collection("accounts").insertOne(account);
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -85,7 +85,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             $set: account,
           }
         );
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -97,7 +97,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       await db.collection("accounts").deleteOne({
         _id: new ObjectId(req.params.id),
       });
-      res.sendStatus(200);
+      res.json({ status: 200 });
     } catch (e) {
       res.json(e);
       console.error(e);
@@ -146,7 +146,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         };
 
         await db.collection("cards").insertOne(card);
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -172,7 +172,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             $set: card,
           }
         );
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -184,7 +184,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       await db.collection("cards").deleteOne({
         _id: new ObjectId(req.params.id),
       });
-      res.sendStatus(200);
+      res.json({ status: 200 });
     } catch (e) {
       res.json(e);
       console.error(e);
@@ -225,7 +225,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
         };
 
         await db.collection("notes").insertOne(note);
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -247,7 +247,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
             $set: note,
           }
         );
-        res.sendStatus(200);
+        res.json({ status: 200 });
       } catch (e) {
         res.json(e);
         console.error(e);
@@ -259,7 +259,7 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       await db.collection("notes").deleteOne({
         _id: new ObjectId(req.params.id),
       });
-      res.sendStatus(200);
+      res.json({ status: 200 });
     } catch (e) {
       res.json(e);
       console.error(e);

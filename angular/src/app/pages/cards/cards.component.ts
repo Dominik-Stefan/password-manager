@@ -19,16 +19,24 @@ export class CardsComponent {
   cards: Card[] = [];
   cardSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
   userService = inject(UserService);
   cardService = inject(CardService);
 
-  ngOnInit(): void {
+  init() {
     this.user = this.userService.getUser();
     this.cardSubject = this.cardService.getCards();
     this.cardSubject.subscribe((res) => {
       this.cards = res;
     });
+  }
+
+  deleteCard(id: string) {
+    if (confirm('Are you sure you want to delete this card?')) {
+      this.cardService.deleteCard(id);
+    }
   }
 }

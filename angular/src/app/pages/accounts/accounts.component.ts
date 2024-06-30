@@ -21,16 +21,24 @@ export class AccountsComponent {
     []
   );
 
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
   userService = inject(UserService);
   accountService = inject(AccountService);
 
-  ngOnInit(): void {
+  init() {
     this.user = this.userService.getUser();
     this.accountSubject = this.accountService.getAccounts();
     this.accountSubject.subscribe((res) => {
       this.accounts = res;
     });
+  }
+
+  deleteAccount(id: string) {
+    if (confirm('Are you sure you want to delete this account?')) {
+      this.accountService.deleteAccount(id);
+    }
   }
 }

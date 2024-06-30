@@ -37,9 +37,11 @@ export class AccountService {
   }
 
   deleteAccount(id: string) {
-    this.dataService.deleteAccount(id).subscribe(() => {
-      this.accounts = this.accounts.filter((account) => account.id !== id);
-      this.accountSubject.next(this.accounts);
+    this.dataService.deleteAccount(id).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.accounts = this.accounts.filter((account) => account.id !== id);
+        this.accountSubject.next(this.accounts);
+      }
     });
   }
 

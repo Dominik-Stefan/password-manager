@@ -19,16 +19,24 @@ export class NotesComponent {
   notes: Note[] = [];
   cardSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
 
-  constructor() {}
+  constructor() {
+    this.init();
+  }
 
   userService = inject(UserService);
   noteService = inject(NoteService);
 
-  ngOnInit(): void {
+  init() {
     this.user = this.userService.getUser();
     this.cardSubject = this.noteService.getNotes();
     this.cardSubject.subscribe((res) => {
       this.notes = res;
     });
+  }
+
+  deleteNote(id: string) {
+    if (confirm('Are you sure you want to delete this note?')) {
+      this.noteService.deleteNote(id);
+    }
   }
 }
