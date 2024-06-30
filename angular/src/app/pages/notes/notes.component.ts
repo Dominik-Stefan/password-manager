@@ -18,7 +18,7 @@ export class NotesComponent {
   user: User = new User();
 
   notes: Note[] = [];
-  cardSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
+  notesSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
 
   constructor() {
     this.init();
@@ -30,8 +30,8 @@ export class NotesComponent {
 
   init() {
     this.user = this.userService.getUser();
-    this.cardSubject = this.noteService.getNotes();
-    this.cardSubject.subscribe((res) => {
+    this.notesSubject = this.noteService.getNotes();
+    this.notesSubject.subscribe((res) => {
       this.notes = res;
     });
   }
@@ -44,5 +44,9 @@ export class NotesComponent {
 
   goToAdd() {
     this.router.navigate(['new', 'note']);
+  }
+
+  goToEdit(id: string) {
+    this.router.navigate(['update', { type: 'note', id: id }]);
   }
 }

@@ -7,8 +7,12 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AccountService {
+  account: Account = new Account();
+  accountSubject: BehaviorSubject<Account> = new BehaviorSubject<Account>(
+    new Account()
+  );
   accounts: Account[] = [];
-  accountSubject: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>(
+  accountsSubject: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>(
     []
   );
 
@@ -19,13 +23,22 @@ export class AccountService {
   }
 
   init() {
+    this.account = new Account();
     this.dataService.getAccounts().subscribe((accounts: any) => {
       this.accounts = [...accounts];
-      this.accountSubject.next(this.accounts);
+      this.accountsSubject.next(this.accounts);
     });
   }
 
   getAccounts() {
+    return this.accountsSubject;
+  }
+
+  getAccount(id: string) {
+    this.dataService.getAccount(id).subscribe((res: any) => {
+      this.account = res;
+      this.accountSubject.next(this.account);
+    });
     return this.accountSubject;
   }
 
@@ -41,7 +54,7 @@ export class AccountService {
     this.dataService.deleteAccount(id).subscribe((res: any) => {
       if (res.status == 200) {
         this.accounts = this.accounts.filter((account) => account.id !== id);
-        this.accountSubject.next(this.accounts);
+        this.accountsSubject.next(this.accounts);
       }
     });
   }
@@ -55,7 +68,7 @@ export class AccountService {
           }
           return a;
         });
-        this.accountSubject.next(this.accounts);
+        this.accountsSubject.next(this.accounts);
       }
     });
   }

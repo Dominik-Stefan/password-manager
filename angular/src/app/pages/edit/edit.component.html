@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Update {{ type }}</h3>
+                </div>
+                <div class="card-body">
+                    <form *ngIf="type == 'account'" class="row" [formGroup]="accountForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" [ngModel]="account.name" formControlName="name">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Username</label>
+                            <input type="text" class="form-control" [ngModel]="account.username"
+                                formControlName="username">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Password</label>
+                            <input type="text" class="form-control" [ngModel]="account.password"
+                                formControlName="password">
+                        </div>
+                    </form>
+                    <form *ngIf="type == 'card'" class="row" [formGroup]="cardForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" [ngModel]="card.name" formControlName="name">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Number</label>
+                            <input type="text" class="form-control" [ngModel]="card.number" formControlName="number">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6"><label class="control-label">Cardholder Name</label>
+                            <input type="text" class="form-control" [ngModel]="card.cardholder_name"
+                                formControlName="cardholderName">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Brand</label>
+                            <input type="text" class="form-control" [ngModel]="card.brand" size="5"
+                                formControlName="brand">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Expiration</label>
+                            <input type="text" size="4" class="form-control" [ngModel]="card.expiration"
+                                placeholder="MM/YY" formControlName="expiration">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">CVV</label>
+                            <input type="text" class="form-control" size="1" placeholder="***" [ngModel]="card.cvv"
+                                formControlName="cvv">
+                        </div>
+                    </form>
+                    <form *ngIf="type == 'note'" class="row" [formGroup]="noteForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" [ngModel]="note.name" formControlName="name">
+                            <br>
+                            <label class="control-label">Text</label>
+                            <textarea cols="30" rows="10" class="form-control" [ngModel]="note.text"
+                                formControlName="text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" *ngIf="type == 'account'" (click)="update()"
+                        [disabled]="!accountForm.valid" style="margin-right: 20px;">Update</button>
+                    <button class="btn btn-primary" *ngIf="type == 'card'" (click)="update()"
+                        [disabled]="!cardForm.valid" style="margin-right: 20px;">Update</button>
+                    <button class="btn btn-primary" *ngIf="type == 'note'" (click)="update()"
+                        [disabled]="!noteForm.valid" style="margin-right: 20px;">Update</button>
+                    <button class="btn btn-danger" (click)="goBack()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

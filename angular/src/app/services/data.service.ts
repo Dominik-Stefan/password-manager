@@ -32,6 +32,18 @@ export class DataService {
     return this.http.get(this.apiCardsUrl);
   }
 
+  getAccount(id: string) {
+    return this.http.get(this.apiAccountsUrl + '/' + id);
+  }
+
+  getCard(id: string) {
+    return this.http.get(this.apiCardsUrl + '/' + id);
+  }
+
+  getNote(id: string) {
+    return this.http.get(this.apiNotesUrl + '/' + id);
+  }
+
   addAccount(account: Account) {
     return this.http.post(this.apiAccountsUrl, account);
   }

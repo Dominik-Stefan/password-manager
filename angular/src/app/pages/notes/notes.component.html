@@ -20,7 +20,8 @@
                                 <td>{{ note.name }}</td>
                                 <td>{{ note.text }}</td>
                                 <td>
-                                    <button class="btn btn-warning" style="margin-right: 5px;">
+                                    <button class="btn btn-warning" style="margin-right: 5px;"
+                                        (click)="goToEdit(note.id)">
                                         Edit
                                     </button>
                                     <button class="btn btn-danger" (click)="deleteNote(note.id)">

@@ -22,7 +22,8 @@
                                 <td>{{ account.username }}</td>
                                 <td>{{ account.password }}</td>
                                 <td>
-                                    <button class="btn btn-warning" style="margin-right: 5px;">
+                                    <button class="btn btn-warning" style="margin-right: 5px;"
+                                        (click)="goToEdit(account.id)">
                                         Edit
                                     </button>
                                     <button class="btn btn-danger" (click)="deleteAccount(account.id)">

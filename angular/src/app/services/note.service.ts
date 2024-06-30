@@ -7,8 +7,10 @@ import { DataService } from './data.service';
   providedIn: 'root',
 })
 export class NoteService {
+  note: Note = new Note();
+  noteSubject: BehaviorSubject<Note> = new BehaviorSubject<Note>(new Note());
   notes: Note[] = [];
-  noteSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
+  notesSubject: BehaviorSubject<Note[]> = new BehaviorSubject<Note[]>([]);
 
   dataService = inject(DataService);
 
@@ -17,13 +19,22 @@ export class NoteService {
   }
 
   init() {
+    this.note = new Note();
     this.dataService.getNotes().subscribe((notes: any) => {
       this.notes = [...notes];
-      this.noteSubject.next(this.notes);
+      this.notesSubject.next(this.notes);
     });
   }
 
   getNotes() {
+    return this.notesSubject;
+  }
+
+  getNote(id: string) {
+    this.dataService.getNote(id).subscribe((res: any) => {
+      this.note = res;
+      this.noteSubject.next(this.note);
+    });
     return this.noteSubject;
   }
 
@@ -39,7 +50,7 @@ export class NoteService {
     this.dataService.deleteNote(id).subscribe((res: any) => {
       if (res.status == 200) {
         this.notes = this.notes.filter((note) => note.id !== id);
-        this.noteSubject.next(this.notes);
+        this.notesSubject.next(this.notes);
       }
     });
   }
@@ -53,7 +64,7 @@ export class NoteService {
           }
           return n;
         });
-        this.noteSubject.next(this.notes);
+        this.notesSubject.next(this.notes);
       }
     });
   }

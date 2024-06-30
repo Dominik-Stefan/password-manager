@@ -92,17 +92,36 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       }
     });
 
-  apiRouter.route("/accounts/:id").delete(checkAuth, async (req, res) => {
-    try {
-      await db.collection("accounts").deleteOne({
-        _id: new ObjectId(req.params.id),
-      });
-      res.json({ status: 200 });
-    } catch (e) {
-      res.json(e);
-      console.error(e);
-    }
-  });
+  apiRouter
+    .route("/accounts/:id")
+    .get(checkAuth, async (req, res) => {
+      try {
+        let account = await db
+          .collection("accounts")
+          .findOne({ _id: new ObjectId(req.params.id) });
+        account = {
+          id: account._id,
+          name: account.name,
+          username: account.username,
+          password: account.password,
+        };
+        res.json(account);
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    })
+    .delete(checkAuth, async (req, res) => {
+      try {
+        await db.collection("accounts").deleteOne({
+          _id: new ObjectId(req.params.id),
+        });
+        res.json({ status: 200 });
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    });
 
   // --------------------------CARDS--------------------------
 
@@ -179,17 +198,39 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       }
     });
 
-  apiRouter.route("/cards/:id").delete(checkAuth, async (req, res) => {
-    try {
-      await db.collection("cards").deleteOne({
-        _id: new ObjectId(req.params.id),
-      });
-      res.json({ status: 200 });
-    } catch (e) {
-      res.json(e);
-      console.error(e);
-    }
-  });
+  apiRouter
+    .route("/cards/:id")
+    .get(checkAuth, async (req, res) => {
+      try {
+        let card = await db
+          .collection("cards")
+          .findOne({ _id: new ObjectId(req.params.id) });
+        card = {
+          id: card._id,
+          name: card.name,
+          cardholder_name: card.cardholder_name,
+          number: card.number,
+          brand: card.brand,
+          expiration: card.expiration,
+          cvv: card.cvv,
+        };
+        res.json(card);
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    })
+    .delete(checkAuth, async (req, res) => {
+      try {
+        await db.collection("cards").deleteOne({
+          _id: new ObjectId(req.params.id),
+        });
+        res.json({ status: 200 });
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    });
 
   // --------------------------NOTES--------------------------
 
@@ -254,17 +295,35 @@ module.exports = function (express, db, secret, jwt, bcrypt) {
       }
     });
 
-  apiRouter.route("/notes/:id").delete(checkAuth, async (req, res) => {
-    try {
-      await db.collection("notes").deleteOne({
-        _id: new ObjectId(req.params.id),
-      });
-      res.json({ status: 200 });
-    } catch (e) {
-      res.json(e);
-      console.error(e);
-    }
-  });
+  apiRouter
+    .route("/notes/:id")
+    .get(checkAuth, async (req, res) => {
+      try {
+        let note = await db
+          .collection("notes")
+          .findOne({ _id: new ObjectId(req.params.id) });
+        note = {
+          id: note._id,
+          name: note.name,
+          text: note.text,
+        };
+        res.json(note);
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    })
+    .delete(checkAuth, async (req, res) => {
+      try {
+        await db.collection("notes").deleteOne({
+          _id: new ObjectId(req.params.id),
+        });
+        res.json({ status: 200 });
+      } catch (e) {
+        res.json(e);
+        console.error(e);
+      }
+    });
 
   return apiRouter;
 };

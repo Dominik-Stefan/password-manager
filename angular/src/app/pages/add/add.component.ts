@@ -23,11 +23,13 @@ import { Note } from '../../data_classes/note';
 })
 export class AddComponent {
   id: string = '';
+
   accountForm = new FormGroup({
     name: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
+
   cardForm = new FormGroup({
     name: new FormControl('', Validators.required),
     cardholderName: new FormControl('', Validators.required),
@@ -35,6 +37,7 @@ export class AddComponent {
       Validators.required,
       Validators.pattern(/^[0-9]{16}$/),
     ]),
+    brand: new FormControl('', Validators.required),
     expiration: new FormControl('', [
       Validators.required,
       Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/),
@@ -44,6 +47,7 @@ export class AddComponent {
       Validators.pattern(/^[0-9]{3}$/),
     ]),
   });
+
   noteForm = new FormGroup({
     name: new FormControl('', Validators.required),
     text: new FormControl('', Validators.required),
@@ -79,6 +83,7 @@ export class AddComponent {
         newCard.cardholder_name =
           this.cardForm.get('cardholderName')?.value || '';
         newCard.number = this.cardForm.get('number')?.value || '';
+        newCard.brand = this.cardForm.get('brand')?.value || '';
         newCard.expiration = this.cardForm.get('expiration')?.value || '';
         newCard.cvv = this.cardForm.get('cvv')?.value || '';
         this.cardService.addCard(newCard);

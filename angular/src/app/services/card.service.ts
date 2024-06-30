@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class CardService {
+  card: Card = new Card();
+  cardSubject: BehaviorSubject<Card> = new BehaviorSubject<Card>(new Card());
   cards: Card[] = [];
-  cardSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
+  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
   dataService = inject(DataService);
 
@@ -17,13 +19,22 @@ export class CardService {
   }
 
   init() {
+    this.card = new Card();
     this.dataService.getCards().subscribe((cards: any) => {
       this.cards = [...cards];
-      this.cardSubject.next(this.cards);
+      this.cardsSubject.next(this.cards);
     });
   }
 
   getCards() {
+    return this.cardsSubject;
+  }
+
+  getCard(id: string) {
+    this.dataService.getCard(id).subscribe((res: any) => {
+      this.card = res;
+      this.cardSubject.next(this.card);
+    });
     return this.cardSubject;
   }
 
@@ -39,7 +50,7 @@ export class CardService {
     this.dataService.deleteCard(id).subscribe((res: any) => {
       if (res.status == 200) {
         this.cards = this.cards.filter((card) => card.id !== id);
-        this.cardSubject.next(this.cards);
+        this.cardsSubject.next(this.cards);
       }
     });
   }
@@ -53,7 +64,7 @@ export class CardService {
           }
           return c;
         });
-        this.cardSubject.next(this.cards);
+        this.cardsSubject.next(this.cards);
       }
     });
   }

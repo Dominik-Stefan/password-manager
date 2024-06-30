@@ -7,6 +7,7 @@ import { AccountsComponent } from './pages/accounts/accounts.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { AddComponent } from './pages/add/add.component';
+import { EditComponent } from './pages/edit/edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,6 +39,11 @@ export const routes: Routes = [
       {
         path: 'new/:id',
         component: AddComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'update',
+        component: EditComponent,
         canActivate: [authGuard],
       },
     ],

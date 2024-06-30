@@ -18,7 +18,7 @@ export class CardsComponent {
   user: User = new User();
 
   cards: Card[] = [];
-  cardSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
+  cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
   constructor() {
     this.init();
@@ -30,8 +30,8 @@ export class CardsComponent {
 
   init() {
     this.user = this.userService.getUser();
-    this.cardSubject = this.cardService.getCards();
-    this.cardSubject.subscribe((res) => {
+    this.cardsSubject = this.cardService.getCards();
+    this.cardsSubject.subscribe((res) => {
       this.cards = res;
     });
   }
@@ -44,5 +44,9 @@ export class CardsComponent {
 
   goToAdd() {
     this.router.navigate(['new', 'card']);
+  }
+
+  goToEdit(id: string) {
+    this.router.navigate(['update', { type: 'card', id: id }]);
   }
 }

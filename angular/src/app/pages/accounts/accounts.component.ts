@@ -18,7 +18,7 @@ export class AccountsComponent {
   user: User = new User();
 
   accounts: Account[] = [];
-  accountSubject: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>(
+  accountsSubject: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>(
     []
   );
 
@@ -32,8 +32,8 @@ export class AccountsComponent {
 
   init() {
     this.user = this.userService.getUser();
-    this.accountSubject = this.accountService.getAccounts();
-    this.accountSubject.subscribe((res) => {
+    this.accountsSubject = this.accountService.getAccounts();
+    this.accountsSubject.subscribe((res) => {
       this.accounts = res;
     });
   }
@@ -46,5 +46,9 @@ export class AccountsComponent {
 
   goToAdd() {
     this.router.navigate(['new', 'account']);
+  }
+
+  goToEdit(id: string) {
+    this.router.navigate(['update', { type: 'account', id: id }]);
   }
 }
