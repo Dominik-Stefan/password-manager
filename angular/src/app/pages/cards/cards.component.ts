@@ -5,6 +5,7 @@ import { CardService } from '../../services/card.service';
 import { UserService } from '../../services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -23,6 +24,7 @@ export class CardsComponent {
     this.init();
   }
 
+  router = inject(Router);
   userService = inject(UserService);
   cardService = inject(CardService);
 
@@ -38,5 +40,9 @@ export class CardsComponent {
     if (confirm('Are you sure you want to delete this card?')) {
       this.cardService.deleteCard(id);
     }
+  }
+
+  goToAdd() {
+    this.router.navigate(['new', 'card']);
   }
 }

@@ -6,6 +6,7 @@ import { authGuard } from './guard/auth.guard';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { NotesComponent } from './pages/notes/notes.component';
+import { AddComponent } from './pages/add/add.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,6 +35,12 @@ export const routes: Routes = [
         component: NotesComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'new/:id',
+        component: AddComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
+  { path: '**', redirectTo: 'login' },
 ];

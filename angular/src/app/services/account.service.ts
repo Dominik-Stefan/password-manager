@@ -30,9 +30,10 @@ export class AccountService {
   }
 
   addAccount(account: Account) {
-    this.dataService.addAccount(account).subscribe((account: any) => {
-      this.accounts = [...this.accounts, account];
-      this.accountSubject.next(this.accounts);
+    this.dataService.addAccount(account).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.init();
+      }
     });
   }
 
@@ -46,14 +47,16 @@ export class AccountService {
   }
 
   updateAccount(account: Account) {
-    this.dataService.updateAccount(account).subscribe((account: any) => {
-      this.accounts = this.accounts.map((a) => {
-        if (a.id === account.id) {
-          return account;
-        }
-        return a;
-      });
-      this.accountSubject.next(this.accounts);
+    this.dataService.updateAccount(account).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.accounts = this.accounts.map((a) => {
+          if (a.id === account.id) {
+            return account;
+          }
+          return a;
+        });
+        this.accountSubject.next(this.accounts);
+      }
     });
   }
 }

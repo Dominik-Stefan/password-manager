@@ -5,6 +5,7 @@ import { AccountService } from '../../services/account.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../data_classes/user';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -25,6 +26,7 @@ export class AccountsComponent {
     this.init();
   }
 
+  router = inject(Router);
   userService = inject(UserService);
   accountService = inject(AccountService);
 
@@ -40,5 +42,9 @@ export class AccountsComponent {
     if (confirm('Are you sure you want to delete this account?')) {
       this.accountService.deleteAccount(id);
     }
+  }
+
+  goToAdd() {
+    this.router.navigate(['new', 'account']);
   }
 }

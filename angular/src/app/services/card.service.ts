@@ -28,28 +28,33 @@ export class CardService {
   }
 
   addCard(card: Card) {
-    this.dataService.addCard(card).subscribe((card: any) => {
-      this.cards = [...this.cards, card];
-      this.cardSubject.next(this.cards);
+    this.dataService.addCard(card).subscribe((res: any) => {
+      if (res.status === 200) {
+        this.init();
+      }
     });
   }
 
   deleteCard(id: string) {
-    this.dataService.deleteCard(id).subscribe(() => {
-      this.cards = this.cards.filter((card) => card.id !== id);
-      this.cardSubject.next(this.cards);
+    this.dataService.deleteCard(id).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.cards = this.cards.filter((card) => card.id !== id);
+        this.cardSubject.next(this.cards);
+      }
     });
   }
 
   updateCard(card: Card) {
-    this.dataService.updateCard(card).subscribe((card: any) => {
-      this.cards = this.cards.map((c) => {
-        if (c.id === card.id) {
-          return card;
-        }
-        return c;
-      });
-      this.cardSubject.next(this.cards);
+    this.dataService.updateCard(card).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.cards = this.cards.map((c) => {
+          if (c.id === card.id) {
+            return card;
+          }
+          return c;
+        });
+        this.cardSubject.next(this.cards);
+      }
     });
   }
 }

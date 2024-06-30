@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>New {{ id }}</h3>
+                </div>
+                <div class="card-body">
+                    <form *ngIf="id == 'account'" class="row" [formGroup]="accountForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Username</label>
+                            <input type="text" class="form-control" formControlName="username">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Password</label>
+                            <input type="text" class="form-control" formControlName="password">
+                        </div>
+                    </form>
+                    <form *ngIf="id == 'card'" class="row" [formGroup]="cardForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Number</label>
+                            <input type="text" class="form-control" formControlName="number">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-6"><label class="control-label">Cardholder Name</label>
+                            <input type="text" class="form-control" formControlName="cardholderName">
+                            <br>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Expiration</label>
+                            <input type="text" size="4" class="form-control" placeholder="MM/YY"
+                                formControlName="expiration">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">CVV</label>
+                            <input type="text" class="form-control" size="1" placeholder="***" formControlName="cvv">
+                        </div>
+                    </form>
+                    <form *ngIf="id == 'note'" class="row" [formGroup]="noteForm">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control" formControlName="name">
+                            <br>
+                            <label class="control-label">Text</label>
+                            <textarea cols="30" rows="10" class="form-control" formControlName="text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" *ngIf="id == 'account'" (click)="add()"
+                        [disabled]="!accountForm.valid" style="margin-right: 20px;">Add</button>
+                    <button class="btn btn-primary" *ngIf="id == 'card'" (click)="add()" [disabled]="!cardForm.valid"
+                        style="margin-right: 20px;">Add</button>
+                    <button class="btn btn-primary" *ngIf="id == 'note'" (click)="add()" [disabled]="!noteForm.valid"
+                        style="margin-right: 20px;">Add</button>
+                    <button class="btn btn-danger" (click)="goBack()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

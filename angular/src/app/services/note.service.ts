@@ -28,28 +28,33 @@ export class NoteService {
   }
 
   addNote(note: Note) {
-    this.dataService.addNote(note).subscribe((note: any) => {
-      this.notes = [...this.notes, note];
-      this.noteSubject.next(this.notes);
+    this.dataService.addNote(note).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.init();
+      }
     });
   }
 
   deleteNote(id: string) {
-    this.dataService.deleteNote(id).subscribe(() => {
-      this.notes = this.notes.filter((note) => note.id !== id);
-      this.noteSubject.next(this.notes);
+    this.dataService.deleteNote(id).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.notes = this.notes.filter((note) => note.id !== id);
+        this.noteSubject.next(this.notes);
+      }
     });
   }
 
   updateNote(note: Note) {
-    this.dataService.updateNote(note).subscribe((note: any) => {
-      this.notes = this.notes.map((n) => {
-        if (n.id === note.id) {
-          return note;
-        }
-        return n;
-      });
-      this.noteSubject.next(this.notes);
+    this.dataService.updateNote(note).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.notes = this.notes.map((n) => {
+          if (n.id === note.id) {
+            return note;
+          }
+          return n;
+        });
+        this.noteSubject.next(this.notes);
+      }
     });
   }
 }

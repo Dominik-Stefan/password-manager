@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from '../../data_classes/user';
 import { NoteService } from '../../services/note.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes',
@@ -23,6 +24,7 @@ export class NotesComponent {
     this.init();
   }
 
+  router = inject(Router);
   userService = inject(UserService);
   noteService = inject(NoteService);
 
@@ -38,5 +40,9 @@ export class NotesComponent {
     if (confirm('Are you sure you want to delete this note?')) {
       this.noteService.deleteNote(id);
     }
+  }
+
+  goToAdd() {
+    this.router.navigate(['new', 'note']);
   }
 }
