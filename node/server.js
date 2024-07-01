@@ -28,8 +28,9 @@ function startServer(database) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  /* app.use(express.static(__dirname + "/public/app")); */
+  app.use(express.static(__dirname + "/public/app"));
 
+  /*
   app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
@@ -39,6 +40,7 @@ function startServer(database) {
     );
     next();
   });
+  */
 
   const authRouter = require("./app/routes/authenticate")(
     express,
@@ -60,9 +62,9 @@ function startServer(database) {
 
   app.use("/api", apiRouter);
 
-  /* app.get("*", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/app/index.html"));
-  }); */
+  });
 
   app.listen(config.port, () => {
     console.log(`Server listening on port ${config.port}`);
