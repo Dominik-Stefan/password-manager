@@ -5,19 +5,12 @@ import { Router } from '@angular/router';
 import { AccountService } from './account.service';
 import { NoteService } from './note.service';
 import { CardService } from './card.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  loginPath = 'http://localhost:8081/auth/login';
-  signupPath = 'http://localhost:8081/auth/register';
-  validatePath = 'http://localhost:8081/auth/validate';
-
-  //loginPath = '/auth/login';
-  //signupPath = '/auth/register';
-  //validatePath = '/auth/validate';
-
   constructor() {}
 
   http = inject(HttpClient);
@@ -39,7 +32,7 @@ export class AuthService {
       const headers = new HttpHeaders().set('Authorization', token);
 
       this.http
-        .post(this.validatePath, {}, { headers: headers })
+        .post(environment.validateUrl, {}, { headers: headers })
         .subscribe((data: any) => {
           if (data.status == 'ok') {
             this.refreshData();
@@ -54,7 +47,7 @@ export class AuthService {
   }
 
   login(user: User) {
-    this.http.post(this.loginPath, user).subscribe((data: any) => {
+    this.http.post(environment.loginUrl, user).subscribe((data: any) => {
       if (data.token) {
         sessionStorage.setItem('token', data.token);
         this.refreshData();
@@ -73,7 +66,7 @@ export class AuthService {
   }
 
   signup(user: User) {
-    this.http.post(this.signupPath, user).subscribe((data: any) => {
+    this.http.post(environment.signupUrl, user).subscribe((data: any) => {
       if (data.status == 'ok') {
         alert('Account created successfully. Please login');
       } else if (data.status) {

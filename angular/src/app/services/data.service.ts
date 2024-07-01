@@ -3,80 +3,73 @@ import { Injectable, inject } from '@angular/core';
 import { Account } from '../data_classes/account';
 import { Card } from '../data_classes/card';
 import { Note } from '../data_classes/note';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  apiAccountsUrl = 'http://localhost:8081/api/accounts';
-  apiCardsUrl = 'http://localhost:8081/api/cards';
-  apiNotesUrl = 'http://localhost:8081/api/notes';
-
-  //apiAccountsUrl = '/api/accounts';
-  //apiCardsUrl = '/api/cards';
-  //apiNotesUrl = '/api/notes';
-
   constructor() {}
 
   http = inject(HttpClient);
 
   getAccounts() {
-    return this.http.get(this.apiAccountsUrl);
+    return this.http.get(environment.apiAccountsUrl);
   }
 
   getNotes() {
-    return this.http.get(this.apiNotesUrl);
+    return this.http.get(environment.apiNotesUrl);
   }
 
   getCards() {
-    return this.http.get(this.apiCardsUrl);
+    return this.http.get(environment.apiCardsUrl);
   }
 
   getAccount(id: string) {
-    return this.http.get(this.apiAccountsUrl + '/' + id);
+    return this.http.get(environment.apiAccountsUrl + '/' + id);
   }
 
   getCard(id: string) {
-    return this.http.get(this.apiCardsUrl + '/' + id);
+    return this.http.get(environment.apiCardsUrl + '/' + id);
   }
 
   getNote(id: string) {
-    return this.http.get(this.apiNotesUrl + '/' + id);
+    return this.http.get(environment.apiNotesUrl + '/' + id);
   }
 
   addAccount(account: Account) {
-    return this.http.post(this.apiAccountsUrl, account);
+    return this.http.post(environment.apiAccountsUrl, account);
   }
 
   addCard(card: Card) {
-    return this.http.post(this.apiCardsUrl, card);
+    return this.http.post(environment.apiCardsUrl, card);
   }
 
   addNote(note: Note) {
-    return this.http.post(this.apiNotesUrl, note);
+    return this.http.post(environment.apiNotesUrl, note);
   }
 
   updateAccount(account: Account) {
-    return this.http.put(this.apiAccountsUrl, account);
+    return this.http.put(environment.apiAccountsUrl, account);
   }
 
   updateCard(card: Card) {
-    return this.http.put(this.apiCardsUrl, card);
+    return this.http.put(environment.apiCardsUrl, card);
   }
 
   updateNote(note: Note) {
-    return this.http.put(this.apiNotesUrl, note);
+    return this.http.put(environment.apiNotesUrl, note);
   }
 
   deleteAccount(id: string) {
-    return this.http.delete(this.apiAccountsUrl + '/' + id);
+    return this.http.delete(environment.apiAccountsUrl + '/' + id);
   }
 
   deleteCard(id: string) {
-    return this.http.delete(this.apiCardsUrl + '/' + id);
+    return this.http.delete(environment.apiCardsUrl + '/' + id);
   }
 
   deleteNote(id: string) {
-    return this.http.delete(this.apiNotesUrl + '/' + id);
+    return this.http.delete(environment.apiNotesUrl + '/' + id);
   }
 }
