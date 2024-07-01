@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
   styleUrl: './cards.component.css',
 })
 export class CardsComponent {
+  visible: boolean = false;
+
   user: User = new User();
 
   cards: Card[] = [];
@@ -48,5 +50,9 @@ export class CardsComponent {
 
   goToEdit(id: string) {
     this.router.navigate(['update', { type: 'card', id: id }]);
+  }
+
+  toggleVisibility() {
+    this.visible = !this.visible;
   }
 }

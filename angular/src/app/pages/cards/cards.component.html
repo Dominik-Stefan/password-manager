@@ -6,7 +6,12 @@
                     <h3>Cards</h3>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-primary" style="margin-bottom: 20px;" (click)="goToAdd()">Add</button>
+                    <button class="btn btn-primary" style="margin-bottom: 20px; margin-right: 10px;"
+                        (click)="goToAdd()">Add</button>
+                    <button class="btn btn-warning" style="margin-bottom: 20px;" *ngIf="!visible"
+                        (click)="toggleVisibility()">Show</button>
+                    <button class="btn btn-warning" style="margin-bottom: 20px;" *ngIf="visible"
+                        (click)="toggleVisibility()">Hide</button>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -23,10 +28,11 @@
                             <tr *ngFor="let card of cards">
                                 <td>{{ card.name }}</td>
                                 <td>{{ card.cardholder_name }}</td>
-                                <td>{{ card.number }}</td>
+                                <td><input [type]="visible ? 'text' : 'password'" disabled value="{{ card.number }}">
+                                </td>
                                 <td>{{ card.brand }}</td>
                                 <td>{{ card.expiration }}</td>
-                                <td>{{ card.cvv }}</td>
+                                <td><input [type]="visible ? 'text' : 'password'" disabled value="{{ card.cvv }}"></td>
                                 <td>
                                     <button class="btn btn-warning" style="margin-right: 5px;"
                                         (click)="goToEdit(card.id)">

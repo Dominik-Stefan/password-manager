@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
   styleUrl: './accounts.component.css',
 })
 export class AccountsComponent {
+  visible: boolean = false;
+
   user: User = new User();
 
   accounts: Account[] = [];
@@ -50,5 +52,9 @@ export class AccountsComponent {
 
   goToEdit(id: string) {
     this.router.navigate(['update', { type: 'account', id: id }]);
+  }
+
+  toggleVisibility() {
+    this.visible = !this.visible;
   }
 }
